@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv1.1.1</title>
+<title>気象警報ビューアーv1.1.3</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -31,9 +31,50 @@ body {
   margin-bottom: 0px;
   cursor: pointer;
 }
+/*新気象防災速報対応*/
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
 </style>
 </head>
 <body>
+<!-- 新気象防災速報対応 -->
+<div id="popup" class="popup hidden">
+  <div class="popup-content">
+    <p>【お知らせ 必読】
+本ウェブアプリは、令和8年5月28日13時頃開始予定の新気象防災速報に対応しています。
+実施日以前においても、「レベル◯◇◇警報」のようなタイトルで表示されますので、ご利用の際は注意するとともにそのまま発信することないようお願いします。</p>
+
+    <label>
+      <input type="checkbox" id="dontShow">
+      次回以降表示しない
+    </label>
+
+    <br><br>
+    <button id="closePopup">閉じる</button>
+  </div>
+</div>
+  
 <button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
 <select id="areaSelect">
   <option selected>全国</option>
@@ -365,6 +406,25 @@ function update() {
   // まとめて渡す
   main(mode, area);
 }
+
+
+//新気象防災速報対応
+window.addEventListener("load", () => {
+  // すでに非表示設定なら出さない
+  if (localStorage.getItem("hidePopup") === "true") return;
+
+  document.getElementById("popup").classList.remove("hidden");
+});
+
+document.getElementById("closePopup").addEventListener("click", () => {
+  const checked = document.getElementById("dontShow").checked;
+
+  if (checked) {
+    localStorage.setItem("hidePopup", "true");
+  }
+
+  document.getElementById("popup").classList.add("hidden");
+});
 </script>
 </body>
 </html>
