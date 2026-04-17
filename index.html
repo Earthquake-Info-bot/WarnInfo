@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv1.1.5</title>
+<title>気象警報ビューアーv1.1.6</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -60,19 +60,15 @@ body {
 </style>
 </head>
 <body>
-<!-- 新気象防災速報対応 -->
-<div id="popup" class="popup hidden">
-  <div class="popup-content">
-    <p>【お知らせ 必読】
+<!-- 新気象防災速報対応 --><div id="popup" class="popup hidden"><div class="popup-content">
+   <p>【お知らせ 必読】
 本ウェブアプリは、令和8年5月28日13時頃開始予定の新気象防災速報に対応しています。
 実施日以前においても、「レベル◯◇◇警報」のようなタイトルで表示されますので、ご利用の際は注意するとともにそのまま発信することないようお願いします。</p>
 <label><input type="checkbox" id="dontShow">次回以降表示しない</label>
 
 <button id="closePopup">閉じる</button>
   </div>
-</div>
-  
-<button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
+</div><button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
 <select id="areaSelect">
   <option selected>全国</option>
   <optgroup label="北海道地方">
