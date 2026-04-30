@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>(旧式)気象警報ビューアーv1.1.7</title>
+<title>[旧式]気象警報ビューアーv1.1.8</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -34,29 +34,6 @@ body {
   margin-bottom: 0px;
   cursor: pointer;
 }
-/*新気象防災速報対応*/
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 250px;
-  text-align: center;
-  width: 80%;
-  max-width: 400px;
-}
-
 .hidden {
   display: none;
 }
@@ -449,25 +426,6 @@ function update() {
   // まとめて渡す
   main(mode, area);
 }
-
-
-//新気象防災速報対応
-window.addEventListener("load", () => {
-  // すでに非表示設定なら出さない
-  if (localStorage.getItem("hidePopup") === "true") return;
-
-  document.getElementById("popup").classList.remove("hidden");
-});
-
-document.getElementById("closePopup").addEventListener("click", () => {
-  const checked = document.getElementById("dontShow").checked;
-
-  if (checked) {
-    localStorage.setItem("hidePopup", "true");
-  }
-
-  document.getElementById("popup").classList.add("hidden");
-});
 </script>
 </body>
 </html>
