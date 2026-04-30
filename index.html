@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[旧式]気象警報ビューアーv1.1.7</title>
+<title>(旧式)気象警報ビューアーv1.1.7</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -63,15 +63,7 @@ body {
 </style>
 </head>
 <body>
-<!-- 新気象防災速報対応 --><div id="popup" class="popup hidden"><div class="popup-content">
-   <p>【お知らせ 必読】
-本ウェブアプリは、令和8年5月28日13時頃開始予定の新気象防災速報に対応しています。
-実施日以前においても、「レベル◯◇◇警報」のようなタイトルで表示されますので、ご利用の際は注意するとともにそのまま発信することないようお願いします。</p>
-<label><input type="checkbox" id="dontShow">次回以降表示しない</label>
-
-<button id="closePopup">閉じる</button>
-  </div>
-</div><button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
+<button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
 <select id="areaSelect">
   <option selected>全国</option>
   <optgroup label="北海道地方">
@@ -166,7 +158,7 @@ body {
 <script>
 async function main(mode=2,taisho_chiiki="全国") {
   try {
-const warnArea = {
+/*const warnArea = {
   "00":{name:"解除",level:null},
   "02":{name:"暴風雪警報",level:3},
   "03":{name:"レベル３大雨警報",level:3},
@@ -208,6 +200,50 @@ const warnArea = {
   "47":{name:"未定・予約",level:null},
   "48":{name:"レベル４高潮危険警報",level:4},
   "49":{name:"レベル４土砂災害危険警報",level:4}
+};*/
+  //旧式
+  const warnArea = {
+  "00":{name:"解除",level:null},
+  "02":{name:"暴風雪警報",level:3},
+  "03":{name:"大雨警報",level:3},
+  "04":{name:"洪水警報",level:3},
+  "05":{name:"暴風警報",level:3},
+  "06":{name:"大雪警報",level:3},
+  "07":{name:"波浪警報",level:3},
+  "08":{name:"高潮警報",level:3},
+  "09":{name:"土砂災害警報",level:3},
+  "10":{name:"大雨注意報",level:2},
+  "12":{name:"大雪注意報",level:2},
+  "13":{name:"風雪注意報",level:2},
+  "14":{name:"雷注意報",level:2},
+  "15":{name:"強風注意報",level:2},
+  "16":{name:"波浪注意報",level:2},
+  "17":{name:"融雪注意報",level:2},
+  "18":{name:"洪水注意報",level:2},
+  "19":{name:"高潮注意報",level:2},
+  "20":{name:"濃霧注意報",level:2},
+  "21":{name:"乾燥注意報",level:2},
+  "22":{name:"なだれ注意報",level:2},
+  "23":{name:"低温注意報",level:2},
+  "24":{name:"霜注意報",level:2},
+  "25":{name:"着氷注意報",level:2},
+  "26":{name:"着雪注意報",level:2},
+  "27":{name:"その他の注意報",level:2},
+  "29":{name:"土砂災害注意報",level:2},
+  "32":{name:"暴風雪特別警報",level:5},
+  "33":{name:"大雨特別警報",level:5},
+  "35":{name:"暴風特別警報",level:5},
+  "36":{name:"大雪特別警報",level:5},
+  "37":{name:"波浪特別警報",level:5},
+  "38":{name:"高潮特別警報",level:5},
+  "39":{name:"土砂災害特別警報",level:5},
+  "42":{name:"未定・予約",level:null},
+  "43":{name:"大雨危険警報",level:4},
+  "45":{name:"未定・予約",level:null},
+  "46":{name:"未定・予約",level:null},
+  "47":{name:"未定・予約",level:null},
+  "48":{name:"高潮危険警報",level:4},
+  "49":{name:"土砂災害危険警報",level:4}
 };
 
     const {warnData,regionReportDT} = await getCityWarningsByArea(warnArea,taisho_chiiki);
