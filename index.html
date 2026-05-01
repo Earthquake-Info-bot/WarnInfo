@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[旧式]気象警報ビューアーv1.1.8</title>
+<title>[旧式]気象警報ビューアーv1.1.9</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -40,6 +40,7 @@ body {
 </style>
 </head>
 <body>
+<div id="updateTime">取得日時: ----/--/-- --:--:--</div>
 <button id="copyBtn">&nbsp;<br>　　　本文をコピー　　　<br>&nbsp;</button>
 <select id="areaSelect">
   <option selected>全国</option>
@@ -133,6 +134,22 @@ body {
 <pre id="eew">読み込み中...</pre>
 
 <script>
+function setNowTime() {
+  const now = new Date();
+
+  const YYYY = now.getFullYear();
+  const MM = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const HH = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+
+  document.getElementById("updateTime").textContent =
+    `取得日時: ${YYYY}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+}
+
+setNowTime();
+  
 async function main(mode=2,taisho_chiiki="全国") {
   try {
 /*const warnArea = {
