@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv1.1.13</title>
+<title>気象警報ビューアーv1.1.14</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -136,7 +136,6 @@ body {
 <label><input type="radio" name="mode" value="all"> 全情報</label>
 <label><input type="radio" name="mode" value="keihou" checked> 警報以上</label>
 <label><input type="radio" name="mode" value="kiken_keihou"> 危険警報以上</label>
-<label><input type="checkbox" id="statusFormat"> 発表状況別</label>
 
 <pre id="eew">読み込み中...</pre>
 
@@ -306,10 +305,10 @@ async function main(mode=2,taisho_chiiki="全国",statusFormat=false) {
     const infoA = Object.values(warnArea).find(w => w.name === a);
     const infoB = Object.values(warnArea).find(w => w.name === b);
 
-  　　const levelA = infoA?.level || 0;
-  　　const levelB = infoB?.level || 0;
+    const levelA = infoA?.level || 0;
+    const levelB = infoB?.level || 0;
 
-  　　return levelB - levelA;
+    return levelB - levelA;
 　　});
 
 for (const warnName of sortedWarnNames) {
@@ -516,7 +515,6 @@ document.querySelectorAll('input[name="mode"]').forEach(radio => {
 
 // セレクト
 document.getElementById("areaSelect").addEventListener("change", update);
-document.getElementById("statusFormat").addEventListener("change", update);
 
 function update() {
   setNowTime();
@@ -531,10 +529,9 @@ function update() {
   // 地域取得
   const area = document.getElementById("areaSelect")
     .selectedOptions[0].textContent.trim();
-  const statusFormat = document.getElementById("statusFormat").checked;
 
   // まとめて渡す
-  main(mode, area, statusFormat);
+  main(mode, area);
 }
 </script>
 </body>
