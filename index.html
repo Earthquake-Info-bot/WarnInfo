@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv2.1.15</title>
+<title>気象警報ビューアーv2.2.1</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -231,14 +231,14 @@ async function main(mode=2,taisho_chiiki="全国",statusFormat=false) {
   const warnArea = {
   "00":{name:"解除",level:null},
   "02":{name:"暴風雪警報",level:3},
-  "03":{name:"レベル３大雨警報",level:3},
+  "03":{name:"レベル3大雨警報",level:3},
   "04":{name:"洪水警報",level:3},
   "05":{name:"暴風警報",level:3},
   "06":{name:"大雪警報",level:3},
   "07":{name:"波浪警報",level:3},
-  "08":{name:"レベル３高潮警報",level:3},
-  "09":{name:"レベル３土砂災害警報",level:3},
-  "10":{name:"レベル２大雨注意報",level:2},
+  "08":{name:"レベル3高潮警報",level:3},
+  "09":{name:"レベル3土砂災害警報",level:3},
+  "10":{name:"レベル2大雨注意報",level:2},
   "12":{name:"大雪注意報",level:2},
   "13":{name:"風雪注意報",level:2},
   "14":{name:"雷注意報",level:2},
@@ -246,7 +246,7 @@ async function main(mode=2,taisho_chiiki="全国",statusFormat=false) {
   "16":{name:"波浪注意報",level:2},
   "17":{name:"融雪注意報",level:2},
   "18":{name:"洪水注意報",level:2},
-  "19":{name:"レベル２高潮注意報",level:2},
+  "19":{name:"レベル2高潮注意報",level:2},
   "20":{name:"濃霧注意報",level:2},
   "21":{name:"乾燥注意報",level:2},
   "22":{name:"なだれ注意報",level:2},
@@ -255,21 +255,21 @@ async function main(mode=2,taisho_chiiki="全国",statusFormat=false) {
   "25":{name:"着氷注意報",level:2},
   "26":{name:"着雪注意報",level:2},
   "27":{name:"その他の注意報",level:2},
-  "29":{name:"レベル２土砂災害注意報",level:2},
+  "29":{name:"レベル2土砂災害注意報",level:2},
   "32":{name:"暴風雪特別警報",level:5},
-  "33":{name:"レベル５大雨特別警報",level:5},
+  "33":{name:"レベル5大雨特別警報",level:5},
   "35":{name:"暴風特別警報",level:5},
   "36":{name:"大雪特別警報",level:5},
   "37":{name:"波浪特別警報",level:5},
-  "38":{name:"レベル５高潮特別警報",level:5},
-  "39":{name:"レベル５土砂災害特別警報",level:5},
+  "38":{name:"レベル5高潮特別警報",level:5},
+  "39":{name:"レベル5土砂災害特別警報",level:5},
   "42":{name:"未定・予約",level:null},
-  "43":{name:"レベル４大雨危険警報",level:4},
+  "43":{name:"レベル4大雨危険警報",level:4},
   "45":{name:"未定・予約",level:null},
   "46":{name:"未定・予約",level:null},
   "47":{name:"未定・予約",level:null},
-  "48":{name:"レベル４高潮危険警報",level:4},
-  "49":{name:"レベル４土砂災害危険警報",level:4}
+  "48":{name:"レベル4高潮危険警報",level:4},
+  "49":{name:"レベル4土砂災害危険警報",level:4}
 };
 
     document.getElementById("eew").textContent = "読み込み中...";
@@ -302,15 +302,20 @@ async function main(mode=2,taisho_chiiki="全国",statusFormat=false) {
     }
     let count = 0;
 
-    const sortedWarnNames = Object.keys(data.warnInfo).sort((a, b) => {
-    const infoA = Object.values(warnArea).find(w => w.name === a);
-    const infoB = Object.values(warnArea).find(w => w.name === b);
-
-    const levelA = infoA?.level || 0;
-    const levelB = infoB?.level || 0;
-
-    return levelB - levelA;
-　　});
+    const warnOrder = ["レベル5大雨特別警報","レベル5土砂災害特別警報","レベル5高潮特別警報",
+      "暴風特別警報","大雪特別警報","暴風雪特別警報","波浪特別警報",
+      "レベル4大雨危険警報","レベル4土砂災害危険警報","レベル4高潮危険警報",
+      "レベル3大雨警報","レベル3土砂災害警報","レベル3高潮警報",
+      "暴風警報","大雪警報","暴風雪警報","波浪警報",
+      "レベル2大雨注意報","レベル2土砂災害注意報","レベル2高潮注意報",
+      "強風注意報","大雪注意報","風雪注意報","雷注意報","波浪注意報""濃霧注意報","乾燥注意報",
+      "融雪注意報","なだれ注意報","低温注意報","霜注意報","着氷注意報","着雪注意報","その他の注意報"
+    ];
+    
+    const sortedWarnNames = [
+      ...warnOrder.filter(name => data.warnInfo[name]),
+      ...Object.keys(data.warnInfo).filter(name => !warnOrder.includes(name))
+    ];
 
 for (const warnName of sortedWarnNames) {
       const areas = data.warnInfo[warnName];
