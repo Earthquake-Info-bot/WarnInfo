@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv3.1.1</title>
+<title>気象警報ビューアーv3.1.2</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -140,7 +140,6 @@ body {
 <pre id="eew">読み込み中...</pre>
 
 <script>
-alert("JS開始");
 const JMA_BASE = "https://www.jma.go.jp/bosai";
 const AREA_JSON_URL = `${JMA_BASE}/common/const/area.json`;
 const WARNING_R8_BASE_URL = `${JMA_BASE}/warning/data/r8`;
@@ -540,7 +539,7 @@ function update() {
       .selectedOptions[0].textContent.trim();
   
     // まとめて渡す
-    main(mode, area);
+    main(mode, area, area !== "全国");
   } catch(e) {
     document.getElementById("eew").textContent = "ERROR\n"+e;
   }
