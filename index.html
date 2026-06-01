@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv2.2.2</title>
+<title>気象警報ビューアーv3.1.1</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -341,11 +341,14 @@ for (const warnName of sortedWarnNames) {
         }
 
         if (statusFormat) {
-          const statusGroups = data.statusInfo?.[warnName]?.[areaName] || {"発表": cities};
-          for (const status in statusGroups) {
-            if (taisho_chiiki === "全国") block += `\n【${areaName} ${status}】`;
-            else block += `\n【${status}】`;
-            block += statusGroups[status].join("　");
+          const statusGroups = data.statusInfo?.[warnName]?.[areaName] || {};
+        
+          for (const status of Object.keys(statusGroups)) {
+            const list = statusGroups[status];
+            if (!list || list.length === 0) continue;
+        
+            block += `\n【${status}】\n`;
+            block += list.join("　") + "\n";
           }
         } else {
           block += `\n【${areaName}】\n`;
