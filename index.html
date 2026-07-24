@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv3.1.5</title>
+<title>気象警報ビューアーv3.2.1</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -476,12 +476,12 @@ function getRegionName(regionCode) {
   }
   return regionCode;
 }
-
+  
 async function fetchR8WarningData(regionCodes) {
   const results = await Promise.all(regionCodes.map(async regionCode => {
     const url = `${WARNING_R8_BASE_URL}/${regionCode}.json`;
     try {
-      const res = await fetch(url, {cache:"no-store"});
+      const res = await fetch(`${url}?t=${Date.now}`, {cache:"no-store"});
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       const reports = await res.json();
       return reports.map(report => ({...report, regionCode}));
