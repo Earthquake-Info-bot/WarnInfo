@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>気象警報ビューアーv3.2.1</title>
+<title>気象警報ビューアーv3.2.2</title>
 <style>
 body {
   font-family:"Yu Gothic","YuGothic","メイリオ",sans-serif;
@@ -508,12 +508,15 @@ window.addEventListener("load", update);
 
 document.getElementById("copyBtn").addEventListener("click", async () => {
   const text = document.getElementById("eew").textContent;
-
+  const btn = document.getElementById("copyBtn");
   try {
     await navigator.clipboard.writeText(text);
-    alert("コピー完了");
+    btn.textContent = "コピー完了";
+    setTimeout(() => {
+      btn.textContent = "コピー";
+    }, 2000);
   } catch(e) {
-    alert("ERROR\n"+e);
+    alert("ERROR\n" + e);
   }
 });
 
